@@ -66,22 +66,22 @@ export async function POST(req: Request) {
 
 });
 
-    await prisma.asset.createMany({
+   await prisma.asset.createMany({
 
-      data:
+data:
 
-      assets.map(asset=>({
+assets.map((asset:string)=>({
 
-        domain:asset,
+domain:asset,
 
-        organizationId:
-        org.id
+organizationId:
+org.id
 
-      })),
+})),
 
-      skipDuplicates:true
+skipDuplicates:true
 
-    });
+});
 
 
     // STEP 3 — Run nuclei
