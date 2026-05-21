@@ -1,22 +1,40 @@
-import { prisma }
-from "../../../lib/prisma";
+import { prisma } from "../../../lib/prisma";
+
+type AssetType = {
+  id:string;
+
+  domain:string;
+
+  organization:{
+    name:string;
+  } | null;
+};
 
 export default async function Assets(){
 
-const assets=
+const assets =
 await prisma.asset.findMany({
-  select: {
-    id: true,
-    domain: true,
-    organization: {
-      select: {
-        name: true,
-      },
-    },
-  },
-  orderBy: {
-    createdAt: "desc",
-  },
+
+select:{
+
+id:true,
+
+domain:true,
+
+organization:{
+
+select:{
+name:true
+}
+
+}
+
+},
+
+orderBy:{
+createdAt:"desc"
+}
+
 });
 
 return(
@@ -55,7 +73,7 @@ No assets discovered
 
 )}
 
-{assets.map(asset=>(
+{assets.map((asset:AssetType)=>(
 
 <div
 
@@ -89,7 +107,8 @@ mt-1
 "
 >
 
-{asset.organization?.name}
+{asset.organization?.name ||
+"Unknown Organization"}
 
 </div>
 
