@@ -2,10 +2,8 @@ import { prisma } from "../../../lib/prisma";
 
 type AssetType = {
   id:string;
-
   domain:string;
-
-  organization:{
+  organization?:{
     name:string;
   } | null;
 };
@@ -16,19 +14,8 @@ const assets =
 await prisma.asset.findMany({
 
 select:{
-
 id:true,
-
-domain:true,
-
-organization:{
-
-select:{
-name:true
-}
-
-}
-
+domain:true
 },
 
 orderBy:{
@@ -48,9 +35,7 @@ font-bold
 mb-8
 "
 >
-
 Assets
-
 </h1>
 
 <div
@@ -66,9 +51,7 @@ className="
 text-zinc-500
 "
 >
-
 No assets discovered
-
 </div>
 
 )}
@@ -96,19 +79,6 @@ font-semibold
 >
 
 {asset.domain}
-
-</div>
-
-<div
-className="
-text-zinc-500
-text-sm
-mt-1
-"
->
-
-{asset.organization?.name ||
-"Unknown Organization"}
 
 </div>
 
